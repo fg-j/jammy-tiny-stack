@@ -34,6 +34,13 @@ function main() {
   mkdir -p "${STACK_DIR}/build"
 
   tools::install
+
+  if ! [[ -f "${STACK_DIR}/build/build.oci" ]] || ! [[ -f "${STACK_DIR}/build/run.oci" ]]; then
+    util::print::title "Stack archives not present. Creating stack..."
+    "${STACK_DIR}/scripts/create.sh"
+  fi
+
+  tests::run
 }
 
 function usage() {
@@ -53,6 +60,20 @@ function tools::install() {
     --directory "${STACK_DIR}/.bin"
 
   util::tools::skopeo::check
+}
+
+function tests::run() {
+  util::print::title "Run Stack Acceptance Tests"
+
+  testout=$(mktemp)
+  pushd "${STACK_DIR}" > /dev/null
+    if GOMAXPROCS="${GOMAXPROCS:-4}" go test -count=1 -timeout 0 ./... -v -run Acceptance | tee "${testout}"; then
+      util::tools::tests::checkfocus "${testout}"
+      util::print::success "** GO Test Succeeded **"
+    else
+      util::print::error "** GO Test Failed **"
+    fi
+  popd > /dev/null
 }
 
 main "${@:-}"

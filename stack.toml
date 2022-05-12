@@ -1,0 +1,42 @@
+id = "io.buildpacks.stacks.jammy.tiny"
+homepage = "https://github.com/paketo-buildpacks/jammy-tiny-stack"
+maintainer = "Paketo Buildpacks"
+
+platforms = ["linux/amd64"]
+
+[build]
+  description = "ubuntu:jammy <TBD>"
+  dockerfile = "./build.Dockerfile"
+  gid = 1000
+  shell = "/bin/bash"
+  uid = 1001
+
+  [build.args]
+    # sources = """
+    # deb http://archive.ubuntu.com/ubuntu bionic main universe multiverse
+    # deb http://archive.ubuntu.com/ubuntu bionic-updates main universe multiverse
+    # deb http://archive.ubuntu.com/ubuntu bionic-security main universe multiverse
+    # """
+
+    # packages = """\
+    # build-essential \
+    # ca-certificates \
+    # curl \
+    # git \
+    # jq \
+    # libgmp-dev \
+    # libssl1.1 \
+    # libyaml-0-2 \
+    # netbase \
+    # openssl \
+    # tzdata \
+    # xz-utils \
+    # zlib1g-dev \
+    # """
+
+[run]
+  description = "distroless-like jammy"
+  dockerfile = "./run/run.Dockerfile"
+  gid = 1000
+  shell = "/sbin/nologin"
+  uid = 1002

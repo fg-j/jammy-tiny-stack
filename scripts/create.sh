@@ -36,7 +36,7 @@ function main() {
   mkdir -p "${BUILD_DIR}"
 
   tools::install
-  # stack::create
+  stack::create
 }
 
 function usage() {
@@ -62,7 +62,6 @@ function stack::create() {
       --config "${STACK_DIR}/stack.toml" \
       --build-output "${BUILD_DIR}/build.oci" \
       --run-output "${BUILD_DIR}/run.oci"
-
 }
 
 main "${@:-}"
