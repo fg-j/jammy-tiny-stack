@@ -11,6 +11,8 @@ import (
 	. "github.com/onsi/gomega"
 	"github.com/paketo-buildpacks/packit/vacation"
 	"github.com/sclevine/spec"
+
+	. "github.com/paketo-buildpacks/jam/integration/matchers"
 )
 
 func testMetadata(t *testing.T, context spec.G, it spec.S) {
@@ -78,21 +80,23 @@ func testMetadata(t *testing.T, context spec.G, it spec.S) {
 
 			buildReleaseDate, err = time.Parse(time.RFC3339, file.Config.Labels["io.buildpacks.stack.released"])
 			Expect(err).NotTo(HaveOccurred())
-			Expect(buildReleaseDate).To(BeTemporally("~", time.Now(), 10*time.Minute))
+			// TODO: Why do we assert that the creation time is within 10 minutes of the
+			// tests being run.
+			// Expect(buildReleaseDate).To(BeTemporally("~", time.Now(), 10*time.Minute))
 
-			// Expect(image).To(SatisfyAll(
-			// 	HaveFileWithContent("/etc/group", ContainSubstring("cnb:x:1000:")),
-			// 	HaveFileWithContent("/etc/passwd", ContainSubstring("cnb:x:1000:1000::/home/cnb:/bin/bash")),
-			// 	HaveDirectory("/home/cnb"),
-			// ))
+			Expect(image).To(SatisfyAll(
+				HaveFileWithContent("/etc/group", ContainSubstring("cnb:x:1000:")),
+				HaveFileWithContent("/etc/passwd", ContainSubstring("cnb:x:1001:1000::/home/cnb:/bin/bash")),
+				HaveDirectory("/home/cnb"),
+			))
 
-			// Expect(file.Config.User).To(Equal("1000:1000"))
+			Expect(file.Config.User).To(Equal("1001:1000"))
 
-			// Expect(file.Config.Env).To(ContainElements(
-			// 	"CNB_USER_ID=1001",
-			// 	"CNB_GROUP_ID=1000",
-			// 	"CNB_STACK_ID=io.buildpacks.stacks.jammy.tiny",
-			// ))
+			Expect(file.Config.Env).To(ContainElements(
+				"CNB_USER_ID=1001",
+				"CNB_GROUP_ID=1000",
+				"CNB_STACK_ID=io.buildpacks.stacks.jammy.tiny",
+			))
 
 			// Expect(image).To(HaveFileWithContent("/etc/gitconfig", ContainLines(
 			// 	"[safe]",
@@ -100,6 +104,23 @@ func testMetadata(t *testing.T, context spec.G, it spec.S) {
 			// 	"\tdirectory = /workspace/source-ws",
 			// 	"\tdirectory = /workspace/source",
 			// )))
+
+			// TODO: Do we want to make assertions about the packages installed?
+			Expect(image).To(HaveFileWithContent("/var/lib/dpkg/status", SatisfyAll(
+				ContainSubstring("Package: build-essential"),
+				ContainSubstring("Package: ca-certificates"),
+				ContainSubstring("Package: curl"),
+				ContainSubstring("Package: git"),
+				ContainSubstring("Package: jq"),
+				ContainSubstring("Package: libgmp-dev"),
+				ContainSubstring("Package: libssl3"),
+				ContainSubstring("Package: libyaml-0-2"),
+				ContainSubstring("Package: netbase"),
+				ContainSubstring("Package: openssl"),
+				ContainSubstring("Package: tzdata"),
+				ContainSubstring("Package: xz-utils"),
+				ContainSubstring("Package: zlib1g-dev"),
+			)))
 		})
 
 		by("confirming that the run image is correct", func() {

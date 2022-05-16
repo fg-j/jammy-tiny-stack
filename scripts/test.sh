@@ -5,6 +5,7 @@ set -o pipefail
 
 readonly PROG_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 readonly STACK_DIR="$(cd "${PROG_DIR}/.." && pwd)"
+readonly OUTPUT_DIR="${STACK_DIR}/build"
 
 # shellcheck source=SCRIPTDIR/.util/tools.sh
 source "${PROG_DIR}/.util/tools.sh"
@@ -13,12 +14,18 @@ source "${PROG_DIR}/.util/tools.sh"
 source "${PROG_DIR}/.util/print.sh"
 
 function main() {
+  local clean
   while [[ "${#}" != 0 ]]; do
     case "${1}" in
       --help|-h)
         shift 1
         usage
         exit 0
+        ;;
+
+      --clean|-c)
+        shift 1
+        clean=true
         ;;
 
       "")
@@ -31,12 +38,15 @@ function main() {
     esac
   done
 
-  mkdir -p "${STACK_DIR}/build"
-
   tools::install
 
-  if ! [[ -f "${STACK_DIR}/build/build.oci" ]] || ! [[ -f "${STACK_DIR}/build/run.oci" ]]; then
-    util::print::title "Stack archives not present. Creating stack..."
+  if [[ "${clean}" == "true" ]]; then
+    util::print::title "Cleaning up preexisting stack archives..."
+    rm -rf "${OUTPUT_DIR}"
+  fi
+
+  if ! [[ -f "${OUTPUT_DIR}/build.oci" ]] || ! [[ -f "${OUTPUT_DIR}/run.oci" ]]; then
+    util::print::title "Creating stack..."
     "${STACK_DIR}/scripts/create.sh"
   fi
 
@@ -45,13 +55,17 @@ function main() {
 
 function usage() {
   cat <<-USAGE
-create.sh [OPTIONS]
+test.sh [OPTIONS]
 
-Creates the stack using the descriptor, build and run Dockerfiles in
-the repository.
+Runs acceptance tests against the stack. Uses the OCI images
+${STACK_DIR}/build/build.oci
+and
+${STACK_DIR}/build/run.oci
+if they exist. Otherwise, first runs create.sh to create them.
 
 OPTIONS
-  --help  -h  prints the command usage
+  --clean  -c  clears contents of stack output directory before running tests
+  --help   -h  prints the command usage
 USAGE
 }
 
