@@ -13,6 +13,7 @@ import (
 	"github.com/sclevine/spec"
 
 	. "github.com/paketo-buildpacks/jam/integration/matchers"
+	. "github.com/paketo-buildpacks/packit/v2/matchers"
 )
 
 func testMetadata(t *testing.T, context spec.G, it spec.S) {
@@ -98,12 +99,12 @@ func testMetadata(t *testing.T, context spec.G, it spec.S) {
 				"CNB_STACK_ID=io.buildpacks.stacks.jammy.tiny",
 			))
 
-			// Expect(image).To(HaveFileWithContent("/etc/gitconfig", ContainLines(
-			// 	"[safe]",
-			// 	"\tdirectory = /workspace",
-			// 	"\tdirectory = /workspace/source-ws",
-			// 	"\tdirectory = /workspace/source",
-			// )))
+			Expect(image).To(HaveFileWithContent("/etc/gitconfig", ContainLines(
+				"[safe]",
+				"\tdirectory = /workspace",
+				"\tdirectory = /workspace/source-ws",
+				"\tdirectory = /workspace/source",
+			)))
 
 			// TODO: Do we want to make assertions about the packages installed?
 			Expect(image).To(HaveFileWithContent("/var/lib/dpkg/status", SatisfyAll(

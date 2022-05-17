@@ -1,7 +1,7 @@
 base-files
 ca-certificates
 libc6
-libssl1.1
+libssl3
 netbase
 openssl
 tzdata

@@ -44,3 +44,4 @@ platforms = ["linux/amd64"]
   gid = 1000
   shell = "/sbin/nologin"
   uid = 1002
+  # TODO: use same package list interface for build and run

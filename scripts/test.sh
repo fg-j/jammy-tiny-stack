@@ -15,6 +15,7 @@ source "${PROG_DIR}/.util/print.sh"
 
 function main() {
   local clean
+  clean="false"
   while [[ "${#}" != 0 ]]; do
     case "${1}" in
       --help|-h)
@@ -25,7 +26,7 @@ function main() {
 
       --clean|-c)
         shift 1
-        clean=true
+        clean="true"
         ;;
 
       "")
