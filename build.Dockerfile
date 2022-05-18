@@ -16,7 +16,7 @@ RUN echo "debconf debconf/frontend select noninteractive" | debconf-set-selectio
   apt-get -y $package_args install $packages && \
   rm -rf /var/lib/apt/lists/* /tmp/*
 
-# RUN for path in /workspace /workspace/source-ws /workspace/source; do git config --system --add safe.directory "${path}"; done
+RUN for path in /workspace /workspace/source-ws /workspace/source; do git config --system --add safe.directory "${path}"; done
 RUN mkdir -p /workspace
 RUN echo "hello" > /workspace/hello.txt
 
