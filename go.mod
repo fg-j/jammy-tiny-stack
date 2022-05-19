@@ -28,3 +28,5 @@ require (
 	golang.org/x/text v0.3.7 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 )
+
+replace github.com/paketo-buildpacks/occam v0.8.0 => github.com/paketo-buildpacks/occam v0.8.1-0.20220519174407-e2e5be747308

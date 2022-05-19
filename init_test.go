@@ -3,6 +3,7 @@ package acceptance_test
 import (
 	"path/filepath"
 	"testing"
+	"time"
 
 	"github.com/onsi/gomega/format"
 	"github.com/sclevine/spec"
@@ -50,7 +51,7 @@ func TestAcceptance(t *testing.T) {
 	// })
 	// Expect(err).NotTo(HaveOccurred())
 
-	// SetDefaultEventuallyTimeout(10 * time.Second)
+	SetDefaultEventuallyTimeout(10 * time.Second)
 
 	suite := spec.New("Acceptance", spec.Report(report.Terminal{}), spec.Parallel())
 	// suite("Metadata", testMetadata)

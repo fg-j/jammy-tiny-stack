@@ -48,8 +48,7 @@ func testBuildpackIntegration(t *testing.T, context spec.G, it spec.S) {
 		buildpackStore := occam.NewBuildpackStore()
 
 		buildPlanBuildpack, err = buildpackStore.Get.
-			WithVersion("1.2.3").
-			Execute("$HOME/workspace/paketo-community/build-plan")
+			Execute("github.com/paketo-community/build-plan")
 		Expect(err).NotTo(HaveOccurred())
 
 		goDistBuildpack, err = buildpackStore.Get.
@@ -64,7 +63,7 @@ func testBuildpackIntegration(t *testing.T, context spec.G, it spec.S) {
 		Expect(err).NotTo(HaveOccurred())
 		builderConfigFilepath = builderConfigFile.Name()
 
-		_, err = builderConfigFile.WriteString(fmt.Sprintf(`
+		_, err = fmt.Fprintf(builderConfigFile, `
 [lifecycle]
   version = "%s"
 
@@ -76,7 +75,7 @@ func testBuildpackIntegration(t *testing.T, context spec.G, it spec.S) {
 			lifecycleVersion,
 			stack.BuildImageID,
 			stack.RunImageID,
-		))
+		)
 		Expect(err).NotTo(HaveOccurred())
 
 		Expect(docker.Pull.Execute(fmt.Sprintf("buildpacksio/lifecycle:%s", lifecycleVersion))).To(Succeed())
@@ -151,7 +150,9 @@ func testBuildpackIntegration(t *testing.T, context spec.G, it spec.S) {
 
 		// Ensure go is installed correctly
 		container, err = docker.Container.Run.
-			WithCommand("-- go run main.go").
+			WithDirect().
+			WithCommand("go").
+			WithCommandArgs([]string{"run", "main.go"}).
 			WithEnv(map[string]string{"PORT": "8080"}).
 			WithPublish("8080").
 			WithPublishAll().
