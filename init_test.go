@@ -5,8 +5,6 @@ import (
 	"testing"
 
 	"github.com/onsi/gomega/format"
-	"github.com/paketo-buildpacks/occam"
-	"github.com/paketo-buildpacks/packit/v2/pexec"
 	"github.com/sclevine/spec"
 	"github.com/sclevine/spec/report"
 
@@ -20,7 +18,7 @@ var stack struct {
 	RunImageID   string
 }
 
-var skopeo pexec.Executable
+// var skopeo pexec.Executable
 
 func by(_ string, f func()) { f() }
 
@@ -32,25 +30,16 @@ func TestAcceptance(t *testing.T) {
 	Expect(err).ToNot(HaveOccurred())
 
 	stack.BuildArchive = filepath.Join(root, "build", "build.oci")
-	build, err := occam.RandomName()
-	Expect(err).NotTo(HaveOccurred())
-	stack.BuildImageID = build
+	// build, err := occam.RandomName()
+	// Expect(err).NotTo(HaveOccurred())
+	// stack.BuildImageID = build
+	stack.BuildImageID = "stack-build-image-id"
 
 	stack.RunArchive = filepath.Join(root, "build", "run.oci")
-	run, err := occam.RandomName()
-	Expect(err).NotTo(HaveOccurred())
-	stack.RunImageID = run
-
-	skopeo = pexec.NewExecutable("skopeo")
-
-	// err = skopeo.Execute(pexec.Execution{
-	// 	Args: []string{
-	// 		"copy",
-	// 		fmt.Sprintf("oci-archive://%s", stack.BuildArchive),
-	// 		fmt.Sprintf("docker-daemon:%s:latest", stack.BuildImageID),
-	// 	},
-	// })
+	// run, err := occam.RandomName()
 	// Expect(err).NotTo(HaveOccurred())
+	// stack.RunImageID = run
+	stack.RunImageID = "stack-run-image-id"
 
 	// err = skopeo.Execute(pexec.Execution{
 	// 	Args: []string{
@@ -64,7 +53,8 @@ func TestAcceptance(t *testing.T) {
 	// SetDefaultEventuallyTimeout(10 * time.Second)
 
 	suite := spec.New("Acceptance", spec.Report(report.Terminal{}), spec.Parallel())
-	suite("Metadata", testMetadata)
+	// suite("Metadata", testMetadata)
+	suite("BuildpackIntegration", testBuildpackIntegration)
 
 	suite.Run(t)
 }
