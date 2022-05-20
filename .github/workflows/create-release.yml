@@ -82,7 +82,6 @@ jobs:
 
     - name: Create Release Notes
       id: create-release-notes
-      uses: paketo-buildpacks/github-config/actions/release/notes@main
       run: |
         echo "::set-output name=release_body::release-note-content"
 
