@@ -260,7 +260,6 @@ github.com/anchore/packageurl-go v0.1.1-0.20220314153042-1bcd40e5206b/go.mod h1:
 github.com/anchore/stereoscope v0.0.0-20220214165125-25ebd49a842b/go.mod h1:QpDHHV2h1NNfu7klzU75XC8RvSlaPK6HHgi0dy8A6sk=
 github.com/anchore/stereoscope v0.0.0-20220406160859-c03a18a6b270/go.mod h1:yoCLUZY0k/pYLNIy0L80p2Ko0PKVNXm8rHtgxp4OiSc=
 github.com/anchore/syft v0.38.0/go.mod h1:mFaFcz22KWOHo/3SOkcpNJBRFe0IivyDXyA6hGUGbWk=
-github.com/anchore/syft v0.43.2/go.mod h1:m6/cWOz0aFbCL0pflHvvBgvw0qMPLVqDQa0L8+FBPVE=
 github.com/anchore/syft v0.44.1/go.mod h1:m6/cWOz0aFbCL0pflHvvBgvw0qMPLVqDQa0L8+FBPVE=
 github.com/andreyvit/diff v0.0.0-20170406064948-c7f18ee00883/go.mod h1:rCTlJbsFo29Kk6CurOXKm700vrz8f0KW0JNfpkRJY/8=
 github.com/andybalholm/brotli v1.0.0/go.mod h1:loMXtMfwqflxFJPmdbJO0a3KNoPuLBgiu3qAvBg8x/Y=
@@ -1590,12 +1589,11 @@ github.com/otiai10/mint v1.3.1/go.mod h1:/yxELlJQ0ufhjUwhshSj+wFjZ78CnZ48/1wtmBH
 github.com/pact-foundation/pact-go v1.0.4/go.mod h1:uExwJY4kCzNPcHRj+hCR/HBbOOIwwtUjcrb0b5/5kLM=
 github.com/paketo-buildpacks/jam v1.3.0 h1:H/L9gAoeQPlDkA1CpjfX9rnQIPwotWopHIqnFyY4Hn4=
 github.com/paketo-buildpacks/jam v1.3.0/go.mod h1:LVMbxgrkvEynqFO2HO6wFRIOqjEagEmA2cPj63Ik3YE=
-github.com/paketo-buildpacks/occam v0.8.0 h1:qNsn7Gxy36JIQozLSG/plm+TUGA/x9/0bMLTsJBUf5w=
-github.com/paketo-buildpacks/occam v0.8.0/go.mod h1:HI7aAtV6LiD04HSE+ZsTMx+iNfcaY4KGegwN+s1IQ0o=
+github.com/paketo-buildpacks/occam v0.8.1-0.20220519174407-e2e5be747308 h1:nI1yroXNQ4vD8TjH1OQDGID4PdE6E4Zw6Zdz9rR+7RE=
+github.com/paketo-buildpacks/occam v0.8.1-0.20220519174407-e2e5be747308/go.mod h1:98w2HyWuLcf/O4KglFue/AqyHnR3oiq2OjbUKy8WoN0=
 github.com/paketo-buildpacks/packit v1.3.1 h1:DJAfqsDadRllr/OPYDONxJEOHbYUMWE1NIPPArq4b7w=
 github.com/paketo-buildpacks/packit v1.3.1/go.mod h1:v0jVFr3GNcM9JDwwuIAzYNV4Le1L728uMSNhjUybXVA=
 github.com/paketo-buildpacks/packit/v2 v2.1.0/go.mod h1:Ud1X7f9O6e4eGPZlY3pj0jnSa9oDK2L/ghvjmarTLSA=
-github.com/paketo-buildpacks/packit/v2 v2.2.0/go.mod h1:lByTFPxKDw+KlcukPbBQKcrzqvMiE99LWkVI7ocxX9w=
 github.com/paketo-buildpacks/packit/v2 v2.3.0 h1:zfNOIGoJvvGhrSriJCDHzyU3Cxg4qR1gqLwzNp9mOmM=
 github.com/paketo-buildpacks/packit/v2 v2.3.0/go.mod h1:9TmiTKglw/vrSG5540+PWPCGNZdM1hULgRAHqRHym0s=
 github.com/pascaldekloe/goe v0.0.0-20180627143212-57f6aae5913c/go.mod h1:lzWF7FIEvWOWxwDKqyGYQf6ZUaNfKdP144TG7ZOy1lc=
