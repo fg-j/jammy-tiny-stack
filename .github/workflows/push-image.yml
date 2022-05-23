@@ -50,8 +50,8 @@ jobs:
       run: |
         echo "${DOCKERHUB_PASSWORD}" | sudo skopeo login --username "${DOCKERHUB_USERNAME}" --password-stdin index.docker.io
 
-        sudo skopeo copy "oci-archive:${GITHUB_WORKSPACE}/build.oci" "docker://vmwarefrankie/build-jammy-tiny:${{ steps.event.outputs.tag }}"
-        sudo skopeo copy "oci-archive:${GITHUB_WORKSPACE}/build.oci" "docker://vmwarefrankie/build-jammy-tiny:latest"
+        sudo skopeo copy "oci-archive:${GITHUB_WORKSPACE}/build.oci" "docker://${DOCKERHUB_USERNAME}/build-jammy-tiny:${{ steps.event.outputs.tag }}"
+        sudo skopeo copy "oci-archive:${GITHUB_WORKSPACE}/build.oci" "docker://${DOCKERHUB_USERNAME}/build-jammy-tiny:latest"
 
-        sudo skopeo copy "oci-archive:${GITHUB_WORKSPACE}/run.oci" "docker://vmwarefrankie/run-jammy-tiny:${{ steps.event.outputs.tag }}"
-        sudo skopeo copy "oci-archive:${GITHUB_WORKSPACE}/run.oci" "docker://vmwarefrankie/run-jammy-tiny:latest"
+        sudo skopeo copy "oci-archive:${GITHUB_WORKSPACE}/run.oci" "docker://${DOCKERHUB_USERNAME}/run-jammy-tiny:${{ steps.event.outputs.tag }}"
+        sudo skopeo copy "oci-archive:${GITHUB_WORKSPACE}/run.oci" "docker://${DOCKERHUB_USERNAME}/run-jammy-tiny:latest"
