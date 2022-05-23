@@ -15,11 +15,6 @@ jobs:
       id: event
       run: |
         echo "::set-output name=tag::$(jq -r '.release.tag_name' "${GITHUB_EVENT_PATH}" | sed s/^v//)"
-
-    - name: Parse Event
-      id: event
-      run: |
-        echo "::set-output name=tag::$(jq -r '.release.tag_name' "${GITHUB_EVENT_PATH}" | sed s/^v//)"
         echo "::set-output name=build_download_url::$(jq -r '.release.assets[] | select(.name | endswith("build.oci")) | .url' "${GITHUB_EVENT_PATH}")"
         echo "::set-output name=run_download_url::$(jq -r '.release.assets[] | select(.name | endswith("run.oci")) | .url' "${GITHUB_EVENT_PATH}")"
 
