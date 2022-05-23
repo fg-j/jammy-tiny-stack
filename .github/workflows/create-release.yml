@@ -87,7 +87,7 @@ jobs:
     - name: Increment Tag
       if: github.event.inputs.version == ''
       id: semver
-      uses: paketo-buildpacks/github-config/actions/tag/increment-tagr@main
+      uses: paketo-buildpacks/github-config/actions/tag/increment-tag@main
 
     - name: Set Release Tag
       id: tag
@@ -99,7 +99,7 @@ jobs:
         echo "::set-output name=tag::${tag}"
 
     - name: Create Release Notes
-      id: create-release-notes
+      id: notes
       run: |
         echo "::set-output name=release_body::release-note-content"
 
@@ -111,7 +111,7 @@ jobs:
         tag_name: ${{ steps.get-version.outputs.version }}
         target_commitish: ${{ github.sha }}
         name: ${{ steps.tag.outputs.tag }}
-        body: ${{ steps.create-release-notes.outputs.release_body }}
+        body: ${{ steps.notes.outputs.release_body }}
         draft: false
         assets: |
           [
