@@ -76,13 +76,16 @@ jobs:
       uses: actions/download-artifact@v3
       with:
         name: build-image
-        path: build.oci
 
     - name: Download Run Image
       uses: actions/download-artifact@v3
       with:
         name: run-image
-        path: run.oci
+
+    - name: "[Temporary] Setup tmate session"
+      uses: mxschmitt/action-tmate@v3
+      with:
+        limit-access-to-actor: true
 
     - name: Increment Tag
       if: github.event.inputs.version == ''
