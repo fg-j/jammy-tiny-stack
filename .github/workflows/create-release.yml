@@ -8,11 +8,11 @@ on:
     - 'stack.toml'
     - '**.Dockerfile'
     - 'run/*'
-    workflow_dispatch:
-      inputs:
-        version:
-          description: 'Version of the release to cut (e.g. 1.2.3)'
-          required: false
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version of the release to cut (e.g. 1.2.3)'
+        required: false
 
 concurrency: release
 
