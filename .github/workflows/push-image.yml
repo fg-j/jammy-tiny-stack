@@ -33,7 +33,7 @@ jobs:
       id: download
       uses: paketo-buildpacks/github-config/actions/release/download-asset@main
       with:
-        url: ${{ steps.event.outputs.run_download_url}}
+        url: ${{ steps.event.outputs.run_download_url }}
         output: "/github/workspace/run.oci"
         token: ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}
 
