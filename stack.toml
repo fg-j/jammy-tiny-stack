@@ -21,7 +21,6 @@ platforms = ["linux/amd64"]
     # TODO: Why do we use main universe and multiverse package repositories?
     # See https://help.ubuntu.com/community/Repositories/Ubuntu for meaning
     # of the classifications
-    
 
     packages = """\
     build-essential \
