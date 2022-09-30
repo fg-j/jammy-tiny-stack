@@ -47,7 +47,7 @@ runs:
     - name: Download Asset
       id: download
       if: ${{ steps.find.outputs.url != '' }}
-      uses: paketo-buildpacks/github-config/actions/release/download-asset@main
+      uses: paketo-buildpacks/github-config/actions/release/download-asset@retry-exp-backoff-download-asset
       with:
         url: ${{ steps.find.outputs.url }}
         output: ${{ inputs.output_path }}
